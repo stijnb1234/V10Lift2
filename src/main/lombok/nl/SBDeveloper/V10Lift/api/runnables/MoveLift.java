@@ -216,13 +216,13 @@ public class MoveLift implements Runnable {
                 if (lib.getMat() == null) lib.setMat(Material.AIR);
                 state.setType(lib.getMat());
                 if (!XMaterial.isNewVersion()) {
-                    state.setRawData(lib.getData());
+                    state.setRawData(lib.getBlockData().getData());
                 }
                 state.update(true);
                 if (XMaterial.isNewVersion()) {
-                    DirectionUtil.setDirection(block, lib.getFace());
-                    DirectionUtil.setBisected(block, lib.getBisected());
-                    DirectionUtil.setSlabType(block, lib.getSlabtype());
+                    DirectionUtil.setDirection(block, lib.getBlockData().getDirectional().getFace());
+                    DirectionUtil.setBisected(block, lib.getBlockData().getBisected().getHalf());
+                    DirectionUtil.setSlabType(block, lib.getBlockData().getSlab().getType());
                 }
                 lb = lift.getBlocks().first();
                 for (Entity ent : Objects.requireNonNull(Bukkit.getWorld(lib.getWorld()), "World is null at MoveLift").getBlockAt(lib.getX(), lib.getY(), lib.getZ()).getChunk().getEntities()) {
@@ -270,22 +270,22 @@ public class MoveLift implements Runnable {
                 if (lib.getMat() == null) lib.setMat(Material.AIR);
                 state.setType(lib.getMat());
                 if (!XMaterial.isNewVersion()) {
-                    state.setRawData(lib.getData());
+                    state.setRawData(lib.getBlockData().getData());
                 }
                 state.update(true);
                 if (XMaterial.isNewVersion()) {
-                    DirectionUtil.setDirection(block, lib.getFace());
-                    DirectionUtil.setBisected(block, lib.getBisected());
-                    DirectionUtil.setSlabType(block, lib.getSlabtype());
+                    DirectionUtil.setDirection(block, lib.getBlockData().getDirectional().getFace());
+                    DirectionUtil.setBisected(block, lib.getBlockData().getBisected().getHalf());
+                    DirectionUtil.setSlabType(block, lib.getBlockData().getSlab().getType());
                 }
                 lift.getBlocks().add(lib);
-                if (lib.getSignLines() != null) {
+                if (lib.getBlockData().getSignLines() != null) {
                     bs = block.getState();
                     if (bs instanceof Sign) {
                         sign = (Sign) bs;
                         for (int i = 0; i < 3; i++) {
-                            sign.setLine(i, lib.getSignLines()[i]);
-                            if (i == 0 && lib.getSignLines()[i].equalsIgnoreCase("[v10lift]") && lib.getSignLines()[1].equals(liftName)) {
+                            sign.setLine(i, lib.getBlockData().getSignLines()[i]);
+                            if (i == 0 && lib.getBlockData().getSignLines()[i].equalsIgnoreCase("[v10lift]") && lib.getBlockData().getSignLines()[1].equals(liftName)) {
                                 sign.setLine(1, liftName);
                                 sign.setLine(3, ChatColor.GOLD + fl);
                             }
@@ -361,13 +361,13 @@ public class MoveLift implements Runnable {
                 if (lib.getMat() == null) lib.setMat(Material.AIR);
                 state.setType(lib.getMat());
                 if (!XMaterial.isNewVersion()) {
-                    state.setRawData(lib.getData());
+                    state.setRawData(lib.getBlockData().getData());
                 }
                 state.update(true);
                 if (XMaterial.isNewVersion()) {
-                    DirectionUtil.setDirection(block, lib.getFace());
-                    DirectionUtil.setBisected(block, lib.getBisected());
-                    DirectionUtil.setSlabType(block, lib.getSlabtype());
+                    DirectionUtil.setDirection(block, lib.getBlockData().getDirectional().getFace());
+                    DirectionUtil.setBisected(block, lib.getBlockData().getBisected().getHalf());
+                    DirectionUtil.setSlabType(block, lib.getBlockData().getSlab().getType());
                 }
             }
             veiter = lift.getToMove().iterator();
@@ -387,22 +387,22 @@ public class MoveLift implements Runnable {
                 if (lib.getMat() == null) lib.setMat(Material.AIR);
                 state.setType(lib.getMat());
                 if (!XMaterial.isNewVersion()) {
-                    state.setRawData(lib.getData());
+                    state.setRawData(lib.getBlockData().getData());
                 }
                 state.update(true);
                 if (XMaterial.isNewVersion()) {
-                    DirectionUtil.setDirection(block, lib.getFace());
-                    DirectionUtil.setBisected(block, lib.getBisected());
-                    DirectionUtil.setSlabType(block, lib.getSlabtype());
+                    DirectionUtil.setDirection(block, lib.getBlockData().getDirectional().getFace());
+                    DirectionUtil.setBisected(block, lib.getBlockData().getBisected().getHalf());
+                    DirectionUtil.setSlabType(block, lib.getBlockData().getSlab().getType());
                 }
                 lift.getBlocks().add(lib);
-                if (lib.getSignLines() != null) {
+                if (lib.getBlockData().getSignLines() != null) {
                     bs = block.getState();
                     if (bs instanceof Sign) {
                         sign = (Sign) bs;
                         for (int i = 0; i < 3; i++) {
-                            sign.setLine(i, lib.getSignLines()[i]);
-                            if (i == 0 && lib.getSignLines()[i].equalsIgnoreCase("[v10lift]") && lib.getSignLines()[1].equals(liftName)) {
+                            sign.setLine(i, lib.getBlockData().getSignLines()[i]);
+                            if (i == 0 && lib.getBlockData().getSignLines()[i].equalsIgnoreCase("[v10lift]") && lib.getBlockData().getSignLines()[1].equals(liftName)) {
                                 sign.setLine(1, liftName);
                                 sign.setLine(3, ChatColor.GOLD + fl);
                             }

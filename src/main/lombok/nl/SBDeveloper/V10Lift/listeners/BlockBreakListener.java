@@ -28,7 +28,7 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
-        LiftBlock tlb = new LiftBlock(b.getWorld().getName(), b.getX(), b.getY(), b.getZ(), (String) null);
+        LiftBlock tlb = new LiftBlock(b, null);
         for (Map.Entry<String, Lift> entry : DataManager.getLifts().entrySet()) {
             Lift lift = entry.getValue();
             if (lift.getBlocks().contains(tlb)) {

@@ -103,7 +103,7 @@ public class PlayerInteractListener implements Listener {
             return;
         }
 
-        if (!lift.getBlocks().contains(new LiftBlock(sign.getWorld().getName(), sign.getX(), sign.getY(), sign.getZ(), (String) null))) return;
+        if (!lift.getBlocks().contains(new LiftBlock(lookingBlock, null))) return;
         if (DataManager.containsEditLift(liftName)) return;
         e.setCancelled(true);
         if (lift.isDefective()) return;
@@ -158,7 +158,7 @@ public class PlayerInteractListener implements Listener {
             } else if (DataManager.containsInputEditsPlayer(p.getUniqueId())) {
                 if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
                 Block block = e.getClickedBlock();
-                LiftBlock tlb = new LiftBlock(block.getWorld().getName(), block.getX(), block.getY(), block.getZ(), DataManager.getInputEditsPlayer(p.getUniqueId()));
+                LiftBlock tlb = new LiftBlock(block, DataManager.getInputEditsPlayer(p.getUniqueId()));
                 Lift lift = DataManager.getLift(DataManager.getEditPlayer(p.getUniqueId()));
                 e.setCancelled(true);
                 if (lift.getInputs().contains(tlb)) {
@@ -171,7 +171,7 @@ public class PlayerInteractListener implements Listener {
             } else if (DataManager.containsOfflineEditsPlayer(p.getUniqueId())) {
                 if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
                 Block block = e.getClickedBlock();
-                LiftBlock tlb = new LiftBlock(block.getWorld().getName(), block.getX(), block.getY(), block.getZ(), (String) null);
+                LiftBlock tlb = new LiftBlock(block, null);
                 Lift lift = DataManager.getLift(DataManager.getEditPlayer(p.getUniqueId()));
                 e.setCancelled(true);
                 if (lift.getOfflineInputs().contains(tlb)) {
@@ -184,7 +184,7 @@ public class PlayerInteractListener implements Listener {
             } else if (DataManager.containsInputRemovesPlayer(p.getUniqueId())) {
                 if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
                 Block block = e.getClickedBlock();
-                LiftBlock tlb = new LiftBlock(block.getWorld().getName(), block.getX(), block.getY(), block.getZ(), (String) null);
+                LiftBlock tlb = new LiftBlock(block, null);
                 Lift lift = DataManager.getLift(DataManager.getEditPlayer(p.getUniqueId()));
                 e.setCancelled(true);
                 if (lift.getInputs().contains(tlb)) {
@@ -197,7 +197,7 @@ public class PlayerInteractListener implements Listener {
             } else if (DataManager.containsOfflineRemovesPlayer(p.getUniqueId())) {
                 if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
                 Block block = e.getClickedBlock();
-                LiftBlock tlb = new LiftBlock(block.getWorld().getName(), block.getX(), block.getY(), block.getZ(), (String) null);
+                LiftBlock tlb = new LiftBlock(block, null);
                 Lift lift = DataManager.getLift(DataManager.getEditPlayer(p.getUniqueId()));
                 e.setCancelled(true);
                 if (lift.getOfflineInputs().contains(tlb)) {
@@ -232,8 +232,8 @@ public class PlayerInteractListener implements Listener {
                 Block now = e.getClickedBlock();
                 if (start == null) {
                     ConfigUtil.sendMessage(e.getPlayer(), "Rope.Delete");
-                    DataManager.addRopeEditPlayer(p.getUniqueId(), new LiftBlock(now.getWorld().getName(), now.getX(), now.getY(), now.getZ(), (String) null));
-                } else if (start.equals(new LiftBlock(now.getWorld().getName(), now.getX(), now.getY(), now.getZ(), (String) null))) {
+                    DataManager.addRopeEditPlayer(p.getUniqueId(), new LiftBlock(now, null));
+                } else if (start.equals(new LiftBlock(now, null))) {
                     DataManager.addRopeEditPlayer(p.getUniqueId(), null);
                     ConfigUtil.sendMessage(e.getPlayer(), "Rope.PartRemoved");
                 } else {
@@ -281,12 +281,7 @@ public class PlayerInteractListener implements Listener {
                     ConfigUtil.sendMessage(e.getPlayer(), "Door.BlacklistedMaterial", Collections.singletonMap("%Name%", e.getClickedBlock().getType().toString().toLowerCase()));
                     return;
                 }
-                LiftBlock lb;
-                if (XMaterial.isNewVersion()) {
-                    lb = new LiftBlock(block.getWorld().getName(), block.getX(), block.getY(), block.getZ(), block.getType());
-                } else {
-                    lb = new LiftBlock(block.getWorld().getName(), block.getX(), block.getY(), block.getZ(), block.getType(), block.getState().getRawData());
-                }
+                LiftBlock lb = new LiftBlock(block);
                 Lift lift = DataManager.getLift(DataManager.getEditPlayer(p.getUniqueId()));
                 Floor floor = lift.getFloors().get(DataManager.getDoorEditPlayer(p.getUniqueId()));
                 if (DoorUtil.isOpenable(block)) {
@@ -309,7 +304,7 @@ public class PlayerInteractListener implements Listener {
                 if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
                 e.setCancelled(true);
                 Block block = e.getClickedBlock();
-                LiftBlock lb = new LiftBlock(block.getWorld().getName(), block.getX(), block.getY(), block.getZ(), (String) null);
+                LiftBlock lb = new LiftBlock(block, null);
                 DataManager.removeWhoisREQPlayer(p.getUniqueId());
                 for (Map.Entry<String, Lift> entry : DataManager.getLifts().entrySet()) {
                     Lift lift = entry.getValue();
@@ -366,7 +361,7 @@ public class PlayerInteractListener implements Listener {
                     return;
                 }
 
-                if (!lift.getBlocks().contains(new LiftBlock(sign.getWorld().getName(), sign.getX(), sign.getY(), sign.getZ(), (String) null))) return;
+                if (!lift.getBlocks().contains(new LiftBlock(e.getClickedBlock(), null))) return;
                 if (DataManager.containsEditLift(liftName)) return;
                 e.setCancelled(true);
                 if (lift.isDefective()) return;

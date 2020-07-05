@@ -1,5 +1,7 @@
 package nl.SBDeveloper.V10Lift.utils;
 
+import nl.SBDeveloper.V10Lift.api.blockdata.WrappedBisected;
+import nl.SBDeveloper.V10Lift.api.blockdata.WrappedSlab;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
@@ -38,13 +40,13 @@ public class DirectionUtil {
         return null;
     }
 
-    public static void setBisected(@Nonnull Block block, String bisected) {
+    public static void setBisected(@Nonnull Block block, WrappedBisected.Half bisected) {
         if (!XMaterial.isNewVersion()) return;
         if (bisected != null && block.getBlockData() instanceof org.bukkit.block.data.Bisected) {
 
             org.bukkit.block.data.Bisected.Half half;
             try {
-                half = org.bukkit.block.data.Bisected.Half.valueOf(bisected);
+                half = org.bukkit.block.data.Bisected.Half.valueOf(bisected.name());
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
                 return;
@@ -67,13 +69,13 @@ public class DirectionUtil {
         return null;
     }
 
-    public static void setSlabType(@Nonnull Block block, String slabtype) {
+    public static void setSlabType(@Nonnull Block block, WrappedSlab.Type slabtype) {
         if (!XMaterial.isNewVersion()) return;
         if (slabtype != null && block.getBlockData() instanceof org.bukkit.block.data.type.Slab) {
 
             org.bukkit.block.data.type.Slab.Type type;
             try {
-                type = org.bukkit.block.data.type.Slab.Type.valueOf(slabtype);
+                type = org.bukkit.block.data.type.Slab.Type.valueOf(slabtype.name());
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
                 return;
